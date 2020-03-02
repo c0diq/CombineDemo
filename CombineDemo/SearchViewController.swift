@@ -60,6 +60,14 @@ class SearchViewController: UIViewController {
             .assign(to: \.query, on: viewModel)
             .store(in: &subscriptions)
 
+        // make search controller inactive when search button is tapped
+        searchController.searchBar.searchButtonClickedPublisher
+            .handleEvents(receiveOutput: { [searchController] _ in
+                searchController.isActive = false
+            })
+            .sink(receiveValue: {})
+            .store(in: &subscriptions)
+
         // bind view model search results to collection view
         viewModel.$results
             // convert API models to View models
