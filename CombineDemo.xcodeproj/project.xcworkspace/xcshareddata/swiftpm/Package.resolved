@@ -1,0 +1,34 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CombineCocoa",
+        "repositoryURL": "git@github.com:CombineCommunity/CombineCocoa.git",
+        "state": {
+          "branch": null,
+          "revision": "c31c85b6f8494247b69997324312dce8bf55b34b",
+          "version": "0.1.0"
+        }
+      },
+      {
+        "package": "CombineDataSources",
+        "repositoryURL": "git@github.com:CombineCommunity/CombineDataSources.git",
+        "state": {
+          "branch": null,
+          "revision": "82500a23998754251c6a869d7ecab2824afa771c",
+          "version": "0.2.4"
+        }
+      },
+      {
+        "package": "CombinePrintout",
+        "repositoryURL": "git@github.com:CombineCommunity/CombinePrintout.git",
+        "state": {
+          "branch": null,
+          "revision": "721fd799f083c57ca59f8658d874c854b2f97348",
+          "version": "0.2.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
