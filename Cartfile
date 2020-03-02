@@ -1,0 +1,2 @@
+github "swiftgif/SwiftGif" ~> 1.7.0
+github "c0diq/DelegateProxy" "swift5"
