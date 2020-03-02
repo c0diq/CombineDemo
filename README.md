@@ -13,8 +13,10 @@ DelegateProxy for adding Combine publishers to delegate based Controls such as U
 Carthage, Swift 5.1, Xcode11, SPM
 
 ## Installation
-> carthage bootstrap
-> open CombineDemo.xcworkspace
+```
+$ carthage bootstrap
+$ open CombineDemo.xcodeproj
+```
 
 ## Playground
 SPM-Playground ...
