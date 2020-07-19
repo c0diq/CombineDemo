@@ -29,7 +29,7 @@ public extension UISearchBar {
         let textEndEditing = delegateProxy.methodInvoked(selector:#selector( UISearchBarDelegate.searchBarTextDidEndEditing(_:)))
 
         return textDidChange.merge(with: textEndEditing)
-            .map { [weak self] _ in self?.text ?? "" }
+            .map { [weak self] _ in self?.text}
             .prepend(self.text)
             .eraseToAnyPublisher()
     }

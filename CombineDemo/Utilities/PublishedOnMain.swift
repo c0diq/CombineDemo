@@ -21,7 +21,7 @@ public class PublishedOnMain<Value> {
 
     public var projectedValue: AnyPublisher<Value, Never> {
       return $value
-        .receive(on: RunLoop.main)
+        .receive(on: DispatchQueue.main)
         .eraseToAnyPublisher()
     }
 
