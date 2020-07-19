@@ -11,6 +11,7 @@ import SwiftGif
 import Combine
 import CombineCocoa
 import CombineDataSources
+import CombinePrintout
 
 class SearchViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
@@ -55,8 +56,6 @@ class SearchViewController: UIViewController {
         // forward search entry to viewmodel
         searchController.searchBar.textPublisher
             .orEmpty()
-            .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
-            .removeDuplicates()
             .assign(to: \.query, on: viewModel)
             .store(in: &subscriptions)
 
@@ -74,10 +73,11 @@ class SearchViewController: UIViewController {
             .map { [imageLoader] results in
                 results.compactMap { CellViewModel(model: $0, imageLoader: imageLoader) }
             }
-            .receive(on: DispatchQueue.main)
-            .handleEvents(receiveOutput: { [collectionView] _ in
+            .handleEvents(receiveOutput: { [collectionView] values in
                 // scroll back to the top when receiving new values
-                collectionView?.contentOffset = CGPoint(x: 0, y: 0)
+                if values.count > 0 {
+                    collectionView?.contentOffset = CGPoint(x: 0, y: 0)
+                }
             })
             .bind(subscriber: collectionView.itemsSubscriber(cellIdentifier: "cell", cellType: Cell.self) { cell, indexPath, model in
                 cell.model = model
@@ -103,6 +103,7 @@ class Cell: UICollectionViewCell {
             cancellable = model.fetchImage()
                 .receive(on: DispatchQueue.main)
                 .assign(to: \.image, on: imageView)
+//                .printCancellable()
         }
     }
 }
