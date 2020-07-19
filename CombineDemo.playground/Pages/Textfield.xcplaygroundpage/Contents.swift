@@ -19,9 +19,11 @@ class MyViewController : UIViewController {
         textField = UITextField()
         textField.borderStyle = .roundedRect
         textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
         view.addSubview(textField)
 
         label = UILabel()
+        label.text = "Search"
         label.numberOfLines = 0
         label.textColor = .black
 
@@ -76,11 +78,8 @@ class MyViewController : UIViewController {
             .store(in: &subscriptions)
     }
 }
-let window = UIWindow(frame: CGRect(x: 0,
-                                    y: 0,
-                                    width: 768,
-                                    height: 1024))
+let window = UIWindow(frame: UIScreen.main.bounds)
 let viewController = MyViewController()
 window.rootViewController = viewController
 window.makeKeyAndVisible()
-PlaygroundPage.current.liveView = window
+PlaygroundPage.current.liveView = viewController

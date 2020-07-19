@@ -19,6 +19,11 @@ Carthage, Swift 5.1, Xcode11, SPM
 ## Installation
 ```
 > carthage bootstrap
-> open CombineDemo.xcodeproj
+> open CombineDemo.xcworkspace
 ```
 
+---
+
+## Swift Playground
+
+In the workspace, the CombineDemo playground can be used to experiment with CombineCocoa.
