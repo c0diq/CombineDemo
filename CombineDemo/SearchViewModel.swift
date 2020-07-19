@@ -60,7 +60,6 @@ class SearchViewModel {
 
     // private
     private let querySubject = PassthroughSubject<String, Never>()
-    private let backgroundQueue = DispatchQueue(label: "API", qos: .background)
     private var cancellable: AnyCancellable?
 
     init() {
@@ -72,7 +71,7 @@ class SearchViewModel {
         return querySubject
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .removeDuplicates()
-            .map { [backgroundQueue] query -> AnyPublisher<[APISearchResultModel], Never> in
+            .map { query -> AnyPublisher<[APISearchResultModel], Never> in
                 guard query.count > 1 else { return Just([]).eraseToAnyPublisher() }
                 
                 let url = URL(string: "https://api.giphy.com/v1/gifs/search?api_key=3BOEDnc7pIsEvmr8iqiFhf5ZuQkR8h6N&q=\(query)")!
@@ -80,7 +79,7 @@ class SearchViewModel {
 
                 return URLSession.DataTaskPublisher(request: request, session: .shared)
                     // perform API call and parsing on background thread
-                    .subscribe(on: backgroundQueue)
+                    .subscribe(on: DispatchQueue.global(qos: .background))
                     .tryMap { data, response in
                         guard let httpResponse = response as? HTTPURLResponse else {
                             throw APIError.unknown

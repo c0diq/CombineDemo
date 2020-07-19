@@ -16,7 +16,6 @@ protocol ImageLoading {
 
 class ImageLoader: ImageLoading {
     private var cache = NSCache<NSString, UIImage>()
-    private let backgroundQueue = DispatchQueue(label: "Image", qos: .background)
 
     init(maxBytesSize: Int) {
         cache.totalCostLimit = maxBytesSize
@@ -24,7 +23,7 @@ class ImageLoader: ImageLoading {
 
     func fetch(at url: URL) -> AnyPublisher<UIImage?, Never> {
         return Just(url)
-            .subscribe(on: backgroundQueue)
+            .subscribe(on: DispatchQueue.global(qos: .background))
             .flatMap { [cache] url -> AnyPublisher<UIImage?, Never> in
                 if let image = cache.object(forKey: url.absoluteString as NSString) {
                     return Just(image).eraseToAnyPublisher()
