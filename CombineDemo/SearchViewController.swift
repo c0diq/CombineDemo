@@ -31,11 +31,12 @@ class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupProperties()
+        
+        setupUI()
         setupCombine()
     }
 
-    private func setupProperties() {
+    private func setupUI() {
         collectionView.dataSource = nil
         collectionView.delegate = nil
 
