@@ -32,7 +32,6 @@ class CellViewModel: Identifiable {
 
     func fetchImage() -> AnyPublisher<UIImage?, Never> {
         return imageLoader.fetch(at: url)
-            .replaceError(with: nil)
             .eraseToAnyPublisher()
     }
 }
